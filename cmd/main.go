@@ -3,14 +3,10 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log/slog"
 	"net/http"
+	"os"
 )
-
-type Config struct {
-	Addr           int
-	Environment    string
-	AssetDirectory string
-}
 
 const (
 	defaultPort        = 6969
@@ -19,11 +15,14 @@ const (
 )
 
 func main() {
-	run()
+	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
+	run(logger)
 }
 
-func run() {
+func run(logger *slog.Logger) {
 	var config Config
+
+	app := NewApplication(config, logger)
 
 	flag.IntVar(&config.Addr, "addr", defaultPort, "The server listen address")
 	flag.StringVar(&config.Environment, "env", defaultEnvironment, "The server environment")
@@ -31,7 +30,7 @@ func run() {
 
 	flag.Parse()
 
-	err := http.ListenAndServe(fmt.Sprintf(":%d", config.Addr), http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	err := http.ListenAndServe(fmt.Sprintf(":%d", app.Config.Addr), http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if _, err := w.Write([]byte("Hello World!")); err != nil {
 			panic(err)
 		}
