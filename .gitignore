@@ -26,4 +26,4 @@
 !*/
 
 # Ignore specific generated template files
-*_templ.go
+**/*_templ.go
