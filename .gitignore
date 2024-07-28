@@ -20,10 +20,10 @@
 
 !tailwind.config.js
 
-# !Makefile
+!Makefile
 
 # ...even if they are in subdirectories
 !*/
 
 # Ignore specific generated template files
-**/*_templ.go
+*_templ.go
