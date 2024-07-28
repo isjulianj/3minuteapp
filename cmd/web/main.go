@@ -26,8 +26,6 @@ func run(logger *slog.Logger) {
 	flag.StringVar(&config.AssetDirectory, "assetDir", defaultStaticDir, "Static asset Directory")
 	flag.Parse()
 
-	fmt.Println("Command-line arguments:", os.Args)
-
 	app := NewApplication(config, logger)
 
 	err := app.ServeHTTP(app.muxHandler())

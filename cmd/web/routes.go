@@ -8,6 +8,10 @@ import (
 func (app *Application) muxHandler() http.Handler {
 	mux := http.NewServeMux()
 
+	fileServer := http.FileServer(http.Dir("./cmd/ui/static/"))
+
+	mux.Handle("GET /static/", http.StripPrefix("/static", fileServer))
+
 	// home
 	mux.HandleFunc("GET /{$}", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		err := pages.Home().Render(r.Context(), w)

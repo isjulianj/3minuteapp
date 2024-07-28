@@ -1,8 +1,13 @@
 package pages
 
+import (
+    "github.com/isjulianj/3minuteapp/cmd/ui/components"
+)
 
 templ Home() {
-    <div>
-        <h1>Hello World</h1>
-    </div>
+        @component.Document("hi there", "this is a description"){
+        <div class="prose font-sans">
+            <h1 class="text-xl font-bold">Hello World</h1>
+        </div>
+    }
 }
