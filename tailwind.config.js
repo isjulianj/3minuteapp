@@ -21,6 +21,9 @@ module.exports = {
         primary: colors.blue,
         secondary: colors.yellow,
         neutral: colors.gray,
+      },
+      rotate: {
+        '320': '320deg',
       }
     },
   },
